@@ -2,7 +2,7 @@
   "name": "home-movie-library",
   "version": "1.0.0",
   "description": "repo for a Full-stack app designed for recording, storing, sorting movies and TV series",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
     "start": "nodemon",
     "type": "tsc && node dist/app.js  ts-node-dev --respawn src/server.ts",
