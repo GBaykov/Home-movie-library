@@ -1,6 +1,6 @@
 import { UUID } from 'crypto';
 
-export type Film = {
+export type FilmType = {
   id: string;
   ownTitle: string;
   ownDescription?: string;
@@ -18,6 +18,6 @@ export type OwnCategory = {
 };
 
 export type DataBase = {
-  films: Film[];
+  films: FilmType[];
   categories: OwnCategory[];
 };
