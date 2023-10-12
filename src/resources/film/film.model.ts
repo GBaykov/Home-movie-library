@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { FilmType, OwnCategory } from '../../types';
 
 export class Film implements FilmType {
-  id: string;
+  movieId: string;
   ownTitle: string;
   isWatched: string;
   ownDescription?: string;
@@ -14,7 +14,7 @@ export class Film implements FilmType {
   Title?: string;
 
   constructor({
-    id = uuid(),
+    movieId = uuid(),
     isWatched,
     ownTitle,
     ownDescription,
@@ -25,7 +25,7 @@ export class Film implements FilmType {
     Genre,
     Title,
   }: FilmType) {
-    this.id = id;
+    this.movieId = movieId;
     this.ownTitle = ownTitle;
     this.isWatched = isWatched;
     this.ownDescription = ownDescription;

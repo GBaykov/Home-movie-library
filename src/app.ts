@@ -21,4 +21,4 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use('/category', categoryRouter);
-app.use('/film', filmRouter);
+app.use('/movies', filmRouter);

@@ -8,8 +8,10 @@ export const getAll = async () => {
   return DB.categories;
 };
 
-export const getCategory = async (id: string) => {
-  const category = await DB.categories.find((item) => item.id === id);
+export const getCategory = async (categoryId: string) => {
+  const category = await DB.categories.find(
+    (item) => item.categoryId === categoryId,
+  );
   if (!category) throw new RequestError('Error: can not get category', 404);
   return category;
 };
@@ -21,12 +23,16 @@ export const addCategory = async (data: OwnCategory) => {
   return category;
 };
 
-export const updateCategory = async (id: string, data: OwnCategory) => {
-  const category = await DB.categories.find((item, index) => item.id === id);
+export const updateCategory = async (categoryId: string, data: OwnCategory) => {
+  const category = await DB.categories.find(
+    (item, index) => item.categoryId === categoryId,
+  );
   if (!category) throw new RequestError('Error: can not update category', 404);
   const newCategory = new Category(data);
-  newCategory.id = id;
-  const index = await DB.categories.findIndex((item) => item.id === id);
+  newCategory.categoryId = categoryId;
+  const index = await DB.categories.findIndex(
+    (item) => item.categoryId === categoryId,
+  );
   DB.categories.splice(index, 1, newCategory);
 
   if (category && newCategory && index !== -1) {
@@ -35,8 +41,10 @@ export const updateCategory = async (id: string, data: OwnCategory) => {
   throw new RequestError('Error: error while updeting category', 404);
 };
 
-export const deleteCategory = async (id: string) => {
-  const index = await DB.categories.findIndex((item) => item.id === id);
+export const deleteCategory = async (categoryId: string) => {
+  const index = await DB.categories.findIndex(
+    (item) => item.categoryId === categoryId,
+  );
   if (!index)
     throw new RequestError(
       'Error in deleteCategory: no category with such id ',

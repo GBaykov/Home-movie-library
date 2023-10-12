@@ -45,8 +45,8 @@ export const getAll = async (query: string) => {
   return filtred;
 };
 
-export const getFilm = async (id: string) => {
-  const film = await DB.films.find((item) => item.id === id);
+export const getFilm = async (movieId: string) => {
+  const film = await DB.films.find((item) => item.movieId === movieId);
   if (!film) throw new RequestError('Error: can not get film', 404);
   return film;
 };
@@ -60,12 +60,12 @@ export const addFilm = async (data: FilmType) => {
   return film;
 };
 
-export const updateFilm = async (id: string, data: FilmType) => {
-  const film = await DB.films.find((item, index) => item.id === id);
+export const updateFilm = async (movieId: string, data: FilmType) => {
+  const film = await DB.films.find((item) => item.movieId === movieId);
   if (!film) throw new RequestError('Error: can not update Film', 404);
   const newFilm = new Film(data);
-  newFilm.id = id;
-  const index = await DB.films.findIndex((item) => item.id === id);
+  newFilm.movieId = movieId;
+  const index = await DB.films.findIndex((item) => item.movieId === movieId);
   DB.films.splice(index, 1, newFilm);
 
   if (film && newFilm && newFilm.ownTitle && newFilm.ownRate && index !== -1) {
@@ -74,11 +74,11 @@ export const updateFilm = async (id: string, data: FilmType) => {
   throw new RequestError('Error: error while updeting category', 404);
 };
 
-export const deleteFilm = async (id: string) => {
-  const index = await DB.films.findIndex((item) => item.id === id);
+export const deleteFilm = async (movieId: string) => {
+  const index = await DB.films.findIndex((item) => item.movieId === movieId);
   if (!index)
     throw new RequestError(
-      'Error in deleteCategory: no film with such id ',
+      'Error in deleteCategory: no film with such movieId ',
       404,
     );
   DB.films.splice(index, 1);

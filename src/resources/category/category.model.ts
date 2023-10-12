@@ -2,12 +2,12 @@ import { v4 as uuid } from 'uuid';
 import { OwnCategory } from '../../types';
 
 export class Category implements OwnCategory {
-  id: string;
+  categoryId: string;
 
   title: string;
 
-  constructor({ id = uuid(), title }: OwnCategory) {
-    this.id = id;
+  constructor({ categoryId = uuid(), title }: OwnCategory) {
+    this.categoryId = categoryId;
     this.title = title;
   }
 }

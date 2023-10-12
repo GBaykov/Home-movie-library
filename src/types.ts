@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
 
 export type FilmType = {
-  id: string;
+  movieId: string;
   ownTitle: string;
   isWatched: string;
   ownDescription?: string;
@@ -14,7 +14,7 @@ export type FilmType = {
 };
 
 export type OwnCategory = {
-  id: string;
+  categoryId: string;
   title: string;
 };
 
