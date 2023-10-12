@@ -3,6 +3,7 @@ import { UUID } from 'crypto';
 export type FilmType = {
   id: string;
   ownTitle: string;
+  isWatched: string;
   ownDescription?: string;
   categoryId?: string;
   ownRate?: number;

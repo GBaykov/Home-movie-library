@@ -3,9 +3,9 @@ import { RequestError } from '../../errorHandler';
 import { FilmType, OwnCategory } from '../../types';
 import { Film } from './film.model';
 
-export const getAll = async (query: string) => {
+const filmFilter = (query: string, films: FilmType[]) => {
   const parsedQuery = JSON.parse(query);
-  let filtredFilms = await DB.films;
+  let filtredFilms = films;
   if (parsedQuery.categoryId) {
     filtredFilms = filtredFilms.filter(
       (item) => item.categoryId == parsedQuery.categoryId,
@@ -16,8 +16,20 @@ export const getAll = async (query: string) => {
       (item) => item.ownTitle === parsedQuery.ownTitle,
     );
   }
-  if (!filtredFilms) throw new RequestError('Error in getAll films', 404);
+  if (parsedQuery.isWatched) {
+    console.log(parsedQuery.isWatched, filtredFilms[0].isWatched);
+    filtredFilms = filtredFilms.filter(
+      (item) => item.isWatched === parsedQuery.isWatched,
+    );
+  }
   return filtredFilms;
+};
+
+export const getAll = async (query: string) => {
+  const films = await DB.films;
+  const filtred = filmFilter(query, films);
+  if (!filtred) throw new RequestError('Error in getAll films', 404);
+  return filtred;
 };
 
 export const getFilm = async (id: string) => {
