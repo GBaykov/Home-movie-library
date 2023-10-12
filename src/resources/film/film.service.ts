@@ -3,9 +3,21 @@ import { RequestError } from '../../errorHandler';
 import { FilmType, OwnCategory } from '../../types';
 import { Film } from './film.model';
 
-export const getAll = async () => {
-  if (!DB.films) throw new RequestError('Error in getAll films', 404);
-  return DB.films;
+export const getAll = async (query: string) => {
+  const parsedQuery = JSON.parse(query);
+  let filtredFilms = await DB.films;
+  if (parsedQuery.categoryId) {
+    filtredFilms = filtredFilms.filter(
+      (item) => item.categoryId == parsedQuery.categoryId,
+    );
+  }
+  if (parsedQuery.ownTitle) {
+    filtredFilms = filtredFilms.filter(
+      (item) => item.ownTitle === parsedQuery.ownTitle,
+    );
+  }
+  if (!filtredFilms) throw new RequestError('Error in getAll films', 404);
+  return filtredFilms;
 };
 
 export const getFilm = async (id: string) => {

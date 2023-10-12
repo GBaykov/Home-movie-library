@@ -10,7 +10,8 @@ router
   .route('/')
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const films = await filmService.getAll();
+      const query = JSON.stringify(req.query);
+      const films = await filmService.getAll(query);
       if (!films) throw new Error('NOO categories');
       res.json(films);
     } catch (err) {
