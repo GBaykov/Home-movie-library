@@ -1,3 +1,4 @@
+import { OMBDAPI_URL } from '../../constants';
 import DB from '../../db';
 import { RequestError } from '../../errorHandler';
 import { FilmType, OwnCategory } from '../../types';
@@ -25,6 +26,18 @@ const filmFilter = (query: string, films: FilmType[]) => {
   return filtredFilms;
 };
 
+const updateFilmWithOMBD = async (data: FilmType, film: Film) => {
+  const apiResponse = await fetch(`${OMBDAPI_URL}&t=${data.ownTitle}`);
+  const apiResponseJson = await apiResponse.json();
+  if (apiResponseJson.Response === 'True') {
+    film.Title = apiResponseJson.Title;
+    film.Year = apiResponseJson.Year;
+    film.Plot = apiResponseJson.Plot;
+    film.Genre = apiResponseJson.Genre;
+  }
+  return film;
+};
+
 export const getAll = async (query: string) => {
   const films = await DB.films;
   const filtred = filmFilter(query, films);
@@ -40,8 +53,8 @@ export const getFilm = async (id: string) => {
 
 export const addFilm = async (data: FilmType) => {
   const film = new Film(data);
-  console.log(film);
-  if (!film || !film.ownTitle)
+  const updatedFilm = await updateFilmWithOMBD(data, film);
+  if (!film || !film.ownTitle || !updatedFilm)
     throw new RequestError('Error: can not create film', 404);
   DB.films.push(film);
   return film;
