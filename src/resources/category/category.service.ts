@@ -1,6 +1,6 @@
-import DB from '../db';
-import { RequestError } from '../errorHandler';
-import { OwnCategory } from '../types';
+import DB from '../../db';
+import { RequestError } from '../../errorHandler';
+import { OwnCategory } from '../../types';
 import { Category } from './category.model';
 
 export const getAll = async () => {

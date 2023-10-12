@@ -1,7 +1,7 @@
 import express, { Router, Request, Response, NextFunction } from 'express';
 import * as bodyParser from 'body-parser';
 import * as filmService from './film.service';
-import { FilmType } from '../types';
+import { FilmType } from '../../types';
 
 const router: Router = express.Router();
 router.use(bodyParser.text());
@@ -45,9 +45,9 @@ router
   .put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      const category: FilmType = await filmService.updateFilm(id, req.body);
-      if (!category || !id) throw new Error('NOO category or id');
-      res.status(200).json(category);
+      const film: FilmType = await filmService.updateFilm(id, req.body);
+      if (!film || !id) throw new Error('NOO film or id');
+      res.status(200).json(film);
     } catch (err) {
       next(err);
     }

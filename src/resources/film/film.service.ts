@@ -1,6 +1,6 @@
-import DB from '../db';
-import { RequestError } from '../errorHandler';
-import { FilmType, OwnCategory } from '../types';
+import DB from '../../db';
+import { RequestError } from '../../errorHandler';
+import { FilmType, OwnCategory } from '../../types';
 import { Film } from './film.model';
 
 export const getAll = async () => {
@@ -16,7 +16,9 @@ export const getFilm = async (id: string) => {
 
 export const addFilm = async (data: FilmType) => {
   const film = new Film(data);
-  if (!film) throw new RequestError('Error: can not create film', 404);
+  console.log(film);
+  if (!film || !film.ownTitle)
+    throw new RequestError('Error: can not create film', 404);
   DB.films.push(film);
   return film;
 };
@@ -29,7 +31,7 @@ export const updateFilm = async (id: string, data: FilmType) => {
   const index = await DB.films.findIndex((item) => item.id === id);
   DB.films.splice(index, 1, newFilm);
 
-  if (film && newFilm && index !== -1) {
+  if (film && newFilm && newFilm.ownTitle && newFilm.ownRate && index !== -1) {
     return newFilm;
   }
   throw new RequestError('Error: error while updeting category', 404);

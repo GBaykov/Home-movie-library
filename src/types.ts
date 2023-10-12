@@ -4,7 +4,7 @@ export type FilmType = {
   id: string;
   ownTitle: string;
   ownDescription?: string;
-  ownCategory?: OwnCategory;
+  categoryId?: string;
   ownRate?: number;
   Year?: number;
   Plot?: string;

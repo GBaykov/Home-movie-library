@@ -1,7 +1,7 @@
 import express, { Router, Request, Response, NextFunction } from 'express';
 import * as bodyParser from 'body-parser';
 import * as catagoryService from './category.service';
-import { OwnCategory } from '../types';
+import { OwnCategory } from '../../types';
 
 const router: Router = express.Router();
 router.use(bodyParser.text());

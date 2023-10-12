@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { OwnCategory } from '../types';
+import { OwnCategory } from '../../types';
 
 export class Category implements OwnCategory {
   id: string;

@@ -1,11 +1,11 @@
 import { v4 as uuid } from 'uuid';
-import { FilmType, OwnCategory } from '../types';
+import { FilmType, OwnCategory } from '../../types';
 
 export class Film implements FilmType {
   id: string;
   ownTitle: string;
   ownDescription?: string;
-  ownCategory?: OwnCategory;
+  categoryId?: string;
   ownRate?: number;
   Year?: number;
   Plot?: string;
@@ -16,7 +16,7 @@ export class Film implements FilmType {
     id = uuid(),
     ownTitle,
     ownDescription,
-    ownCategory,
+    categoryId,
     ownRate,
     Year,
     Plot,
@@ -26,7 +26,7 @@ export class Film implements FilmType {
     this.id = id;
     this.ownTitle = ownTitle;
     this.ownDescription = ownDescription;
-    this.ownCategory = ownCategory;
+    this.categoryId = categoryId;
     this.ownRate = ownRate;
     this.Year = Year;
     this.Plot = Plot;
