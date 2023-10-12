@@ -17,6 +17,9 @@ export const getCategory = async (categoryId: string) => {
 };
 
 export const addCategory = async (data: OwnCategory) => {
+  if (!data.title) {
+    throw new RequestError('Error: Category Data mast include  title', 404);
+  }
   const category = new Category(data);
   if (!category) throw new RequestError('Error: can not create category', 404);
   DB.categories.push(category);

@@ -12,7 +12,7 @@ router
     try {
       const query = JSON.stringify(req.query);
       const films = await filmService.getAll(query);
-      if (!films) throw new Error('NOO categories');
+      if (!films) throw new Error('NOO films');
       res.json(films);
     } catch (err) {
       next(err);
@@ -59,7 +59,7 @@ router
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const { movieId } = req.params;
-        if (!movieId) throw new Error('NOO id');
+        if (!movieId) throw new Error('NOO movieId');
         const result: number = await filmService.deleteFilm(movieId);
         res.status(200).json(result);
       } catch (err) {
