@@ -8,6 +8,7 @@ dotenv.config({
 const config = {
   PORT: process.env.PORT,
   NODE_ENV: process.env.NODE_ENV,
+  LOG_LVL: process.env.LOG_LVL,
 };
 
-export const { PORT } = process.env;
+export const { PORT, LOG_LVL } = process.env;
