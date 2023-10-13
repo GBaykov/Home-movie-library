@@ -60,10 +60,11 @@ export const addFilm = async (data: FilmType) => {
   }
   const film = new Film(data);
   const updatedFilm = await updateFilmWithOMBD(data, film);
-  if (!film || !updatedFilm)
+  if (!film || !updatedFilm) {
     throw new RequestError('Error: can not create film', 404);
-  DB.films.push(film);
-  return film;
+  }
+  DB.films.push(updatedFilm);
+  return updatedFilm;
 };
 
 export const updateFilm = async (movieId: string, data: FilmType) => {
@@ -75,15 +76,9 @@ export const updateFilm = async (movieId: string, data: FilmType) => {
   DB.films.splice(index, 1, newFilm);
 
   const updatedFilm = await updateFilmWithOMBD(data, newFilm);
-  if (
-    updatedFilm &&
-    updatedFilm.ownTitle &&
-    updatedFilm.ownRate &&
-    index !== -1
-  ) {
+  if (updatedFilm && updatedFilm.ownTitle && index !== -1) {
     return updatedFilm;
-  }
-  throw new RequestError('Error: error while updeting category', 404);
+  } else throw new RequestError('Error: error while updeting film', 404);
 };
 
 export const deleteFilm = async (movieId: string) => {

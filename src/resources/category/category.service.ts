@@ -27,6 +27,7 @@ export const addCategory = async (data: OwnCategory) => {
 };
 
 export const updateCategory = async (categoryId: string, data: OwnCategory) => {
+  console.log(data);
   const category = await DB.categories.find(
     (item, index) => item.categoryId === categoryId,
   );
@@ -37,11 +38,11 @@ export const updateCategory = async (categoryId: string, data: OwnCategory) => {
     (item) => item.categoryId === categoryId,
   );
   DB.categories.splice(index, 1, newCategory);
-
+  console.log(newCategory);
   if (category && newCategory && index !== -1) {
     return newCategory;
   }
-  throw new RequestError('Error: error while updeting category', 404);
+  throw new RequestError(' error while updeting category', 404);
 };
 
 export const deleteCategory = async (categoryId: string) => {
